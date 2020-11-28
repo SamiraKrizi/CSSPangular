@@ -1,5 +1,4 @@
 <head>
-    <title>Insurance Finance category Flat Bootstrap Responsive website Template | Home :: w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
     <meta name="keywords" content="Insurance Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -15,18 +14,20 @@
     </script>
     <!-- Custom Theme files -->
     <!--link href="/assets/css/bootstrap.css" type="text/css" rel="stylesheet" media="all"-->
-    <link href="/assets/css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="/assets/style.css" type="text/css"  media="all">
     <!-- grid hover -->
     <link href="/assets/css/hover.css" type="text/css" rel="stylesheet" media="all">
     <!-- font-awesome icons -->
     <link href="/assets/css/fontawesome-all.min.css" rel="stylesheet">
     <!-- //Custom Theme files -->
     <!-- online-fonts -->
-    <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
     <!-- //online-fonts -->
-</head>
-    
+</head> 
+
+<div class="banner" id="home"></div>
+
 <div class="about-w3sec py-sm-5" id="about">
     <div class="container py-4">
         <div class="title-section pb-4">
@@ -67,9 +68,86 @@
             </div>
     </div>
 </div>
+
     <!-- //about -->
     
- 
+  <!-- testimonials -->
+  <div class="testimonials py-lg-5" id="testi">
+    <div class="container py-5">
+        <div class="title-section pb-4">
+            <h3 class="main-title-agile text-white">what people say about us.</h3>
+            <span class="title-line bg-light">
+            </span>
+        </div>
+        <div class="text-center py-lg-5">
+            <div class="callbacks_container">
+                <ul class="rslides" id="slider3">
+                    <li>
+                        <div class="testi-agile">
+                            <p>
+                                <i class="fas fa-quote-left"></i>Vivamus magna justo, lacinia eget consectetur
+                                sed,
+                                convallis at tellus. Nulla
+                                quis lorem ut libero malesuada feugiat.Nulla quis lorem ut libero malesuada
+                                feugiat.
+                                Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur
+                                adipiscing
+                                elit.
+                                <i class="fas fa-quote-right"></i>
+                            </p>
+                        </div>
+                        <div class="testi-pos">
+                            <img src="/assets/images/ts1.jpg" alt="" class="img-fluid rounded-circle mb-3" />
+                            <h4>arim john</h4>
+                            <span>congue leo</span>
+                        </div>
+                    </li>
+                    <li>
+
+                        <div class="testi-agile">
+                            <p>
+                                <i class="fas fa-quote-left"></i>Donec rutrum congue leo eget consectetur sed,
+                                convallis at tellus. Nulla quis
+                                lorem ut libero malesuada feugiat.Nulla quis lorem ut libero malesuada feugiat.
+                                Donec
+                                rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur
+                                adipiscing
+                                elit
+                                <i class="fas fa-quote-right"></i>
+                            </p>
+                        </div>
+                        <div class="testi-pos">
+                            <img src="/assets/images/ts2.jpg" alt="" class="img-fluid rounded-circle mb-3" />
+                            <h4>john arim</h4>
+                            <span>lacinia eget</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="testi-agile">
+                            <p>
+                                <i class="fas fa-quote-left"></i>Vivamus magna justo, lacinia eget consectetur
+                                sed,
+                                convallis at tellus. Nulla
+                                quis lorem ut libero malesuada feugiat.Nulla quis lorem ut libero malesuada
+                                feugiat.
+                                Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur
+                                adipiscing
+                                elit
+                                <i class="fas fa-quote-right"></i>
+                            </p>
+                        </div>
+                        <div class="testi-pos">
+                            <img src="/assets/images/ts3.jpg" alt="" class="img-fluid rounded-circle mb-3" />
+                            <h4>john arim</h4>
+                            <span>Donec rutru</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //testimonials -->
 
     <!-- contact -->
     <div class="contact-wthree" id="contact">
@@ -155,130 +233,73 @@
                         </div>
                     </form>
                 </div>
-                <!--  -----------------------------login----------------------------------- -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-                        <div *ngIf="isLoginError" class="red-text center error-message">
-                            <i class="material-icons">error</i> Incorrect username or password
-                        </div>
-						<form action="/login/form" #loginForm="ngForm" class="col s12 white" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
-							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Username</label>
-								<input type="email" class="form-control" #UserName ngModel name="UserName" placeholder="exemple@exemple.com" required >
-							</div>
-							<div class="form-group">
-								<label for="password" class="col-form-label">Password</label>
-								<input type="password" class="form-control" #Password ngModel name="Password" placeholder="Password" required>
-							</div>
-							<div class="right-w3l">
-								<input type="submit"   class="form-control" [disabled]="!loginForm.valid" value="Login" routerLink="/menu/options" >
-							</div>
-							<div class="row sub-w3l my-3">
-								<div class="col sub-agile">
-									<input type="checkbox" id="brand1" value="">
-									<label for="brand1" class="text-white">
-										<span></span>Remember me?</label>
-								</div>
-								<div class="col forgot-w3l text-right">
-									<a href="#" class="text-white">Forgot Password?</a>
-								</div>
-							</div>
-							<p class="text-center dont-do text-white">Don't have an account?
-								<a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-white">
-									Register Now</a>
-
-							</p>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-        <!-- ------------------------------------------------------------------------------------ -->
-        
-    <!-- ------------------------------------------register ---------------------------------------->
-    <div class="modal fade" id="exampleModal1"  role="dialog" aria-labelledby="exampleModalLabel1"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Register</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
-                <div class="modal-body">
-                    <form #form="ngForm" (submit)="onSubmit(form)" autocomplete = "off">
-                      
-                        <div class="form-group">
-                            <label class="col-form-label">Email</label>
-                            <input type="email" #email="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder=" " name="Email" #Email = "ngModel" [(ngModel)]="service.formData.Email" required>
-                            <!--div class="validation-error" *ngIf="Email.invalid && Email.touched"> This field is required</div-->
-                            <div *ngIf="email.errors && (email.invalid && email.touched)">
-                            <div class="validation-error"  *ngIf="email.errors.required"> Email is required</div>
-                            <div class="validation-error" *ngIf="email.errors.pattern">Please provide a valid email address</div>
-                        </div>
-                        </div>
 
 
+                 <!-- // register -->
+    <!-- js -->
+    <script src="/assets/js/jquery-2.2.3.min.js"></script>
 
+    <!-- testimonials  Responsiveslides -->
+    <script src="/assets/js/responsiveslides.min.js"></script>
+    <script>
+        // You can also use"$(window).load(function() {"
+        $(function () {
+            // Slideshow 4
+            $("#slider3").responsiveSlides({
+                auto: true,
+                pager: true,
+                nav: false,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
 
-                        <div class="form-group">
-                            <label class="col-form-label">Vehicle Registration</label>
-                            <input type="text" #VehicleRegistration="ngModel"  required pattern= "^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$" class="form-control" placeholder=" " name="VehicleRegistration" #VehicleRegistration = "ngModel" [(ngModel)]="service.formData.VehicleRegistration" required>
-                            <div *ngIf="VehicleRegistration.errors && (VehicleRegistration.invalid && VehicleRegistration.touched)">
-                            <div class="validation-error"  *ngIf="VehicleRegistration.errors.required"> Vehicle Registration is required</div>
-                            <div class="validation-error" *ngIf="VehicleRegistration.errors.pattern">Please provide a valid Vehicle Registration </div>
-                        </div>
-                        </div>
+        });
+    </script>
+    <!-- //testimonials  Responsiveslides -->
+    <!-- start-smooth-scrolling -->
+    <script src="/assets/js/move-top.js"></script>
+    <script src="/assets/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
 
-                        <div class="form-group">
-                        <label class="col-form-label">Registration Country</label>
-                            <select placeholder="Phantasyland"  #RegistrationCountry="ngModel"  class="form-control" name="RegistrationCountry" #RegistrationCountry = "ngModel" [(ngModel)]="service.formData.RegistrationCountry" required>
-                                <option *ngFor ="let count of countryList">{{count.name}} </option>
-                            </select>
-                            <div *ngIf="RegistrationCountry.errors && (RegistrationCountry.invalid && RegistrationCountry.touched)">
-                                <div class="validation-error"  *ngIf="RegistrationCountry.errors.required"> Registration Country is required</div>
-                        </div>
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- //end-smooth-scrolling -->
+    <!-- smooth-scrolling-of-move-up -->
+    <script>
+        $(document).ready(function () {
+            
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear' 
+            };
+            
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-</div>
-
-                        
-                        <div class="form-group">
-                            <label class="col-form-label">Phone Number</label>
-                            <input type="text" #PhoneNumber="ngModel" required pattern="" class="form-control" placeholder=" " name="PhoneNumber" #PhoneNumber = "ngModel" [(ngModel)]="service.formData.PhoneNumber" required>
-                                <div *ngIf="PhoneNumber.errors && (PhoneNumber.invalid && PhoneNumber.touched)">
-                                    <div class="validation-error"  *ngIf="PhoneNumber.errors.required"> Registration Country is required</div>
-                            </div>
-
-                    </div>
-                        <div class="form-group">
-                            <label class="col-form-label">Password</label>
-                            <input type="password" class="form-control" placeholder=" " name="Password" #Password = "ngModel" [(ngModel)]="service.formData.Password" required>
-                            
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-form-label">Confirm Password</label>
-                            <input type="password" class="form-control" placeholder=" " name="ConfirmPassword" #ConfirmPassword = "ngModel" [(ngModel)]="service.formData.ConfirmPassword" required validateEqual="password">
-                        </div>
-
-                  
-                        <div class="right-w3l">
-                            <input type="submit"   class="form-control" value="Register" [disabled]="form.invalid"  routerLink="/home" >
-                               
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-      
+        });
+    </script>
+    <script src="/assets/js/SmoothScroll.min.js"></script>
+    <!-- //smooth-scrolling-of-move-up -->
+    <script src="/assets/js/counter.js"></script>
+    <!-- //stats -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/bootstrap.js"></script>

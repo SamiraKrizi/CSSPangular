@@ -3,11 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ClaimService } from 'src/app/service/claim.service';
 import { countries } from './countries';
+import { NavbarService } from '../service/navbar.service';
+import { FooterService } from '../service/footer.service';
 
 @Component({
   selector: 'app-accident',
   template: `
-          <ng-container [formGroup]="accidentDetails">       
+          <ng-container [formGroup]="details">       
           <kendo-formfield [showHints]="'initial'" [showErrors]="'initial'">
           <kendo-label [for]="location" text="Location *"></kendo-label>
           <kendo-autocomplete
@@ -58,7 +60,7 @@ import { countries } from './countries';
     `]
 })
 
-export class AccidentComponent  {
+export class AccidentComponent implements OnInit  {
     DetailsID : number;
     Location   : string;
     AccidentDate   : string;
@@ -67,8 +69,18 @@ export class AccidentComponent  {
 
     public countries: Array<string> = countries;
 
-    @Input() public accidentDetails: FormGroup;
+    @Input() public details: FormGroup;
 
-constructor(public claimService : ClaimService, private toastr: ToastrService) { } 
+constructor(public nav: NavbarService , public claimService : ClaimService, private toastr: ToastrService, public fot : FooterService) { } 
+
+ngOnInit(): void {
+    this.nav.show();
+    this.nav.doSomethingElseUseful();
+
+    this.fot.show2();
+    this.fot.doSomethingElseUseful2();
+
+  }
 
 }
+ 

@@ -5,5 +5,6 @@ export class Details {
     AccidentDate   : string;
     BodilyInjury  : string;
     Description  : string;
+    ClaimId : number;
 
 }

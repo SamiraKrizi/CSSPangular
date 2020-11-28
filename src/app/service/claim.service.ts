@@ -45,5 +45,6 @@ export class ClaimService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };  
     return this.http.put<Claim>(this.rootURL + '/csspClaims',  
     claim, httpOptions);  
-  }  
+  } 
+
 }

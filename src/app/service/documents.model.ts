@@ -4,7 +4,6 @@ enum FileType {
     InjuryReport,
     Invoices ,
     Other 
-
 }
 enum InjuryReportType
     {
@@ -37,6 +36,7 @@ export class Documents {
     DocumentsID : number;
     Type : String;
     File : File; 
-    Size : number
+    Size : number;
+    ClaimId : number
 
 }

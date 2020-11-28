@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Stock Signup Form Responsive Widget Template :: W3layouts</title>
+		<!-- Meta tags -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!-- //Meta tags -->
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" media="all" /><!-- Style-CSS -->
+    <link href="/assets/css/font-awesome.css" rel="stylesheet"><!-- font-awesome-icons -->
+</head>
+
+<body>
+	<section class="w3l-form-36">
+		<div class="form-36-mian section-gap">
+			<div class="wrapper">
+				<div class="form-inner-cont">
+					<h3 style="color: #56238e; font-weight: bold;"> Connexion</h3>
+
+					<!--div class="modal-body">
+                        <div  *ngIf="!isLoggedIn" class="red-text center error-message">
+							<i class="material-icons">Incorrect username or password</i> 
+							
+						</div>
+						</div-->
+						<!--*ngIf="!isLoggedIn"-->
+						<form  class="signin-form" action="/login/form" #loginForm="ngForm"  class="col s12 white" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
+
+
+						<div class="form-input">
+							<span class="fa fa-envelope-o" aria-hidden="true"></span>
+							 <input type="email" placeholder="Email" class="form-control" #UserName ngModel name="UserName" required />
+						</div>
+
+						<div class="form-input">
+							<span class="fa fa-key" aria-hidden="true"></span>
+							<input type="password" class="form-control" #Password ngModel name="Password" placeholder="Password" required />
+						</div>
+											
+						<div class="login-remember d-grid">
+							<label class="check-remaind">
+								<input type="checkbox">
+								<span class="checkmark"></span>
+								<p class="remember">Remember me</p>
+							</label>
+
+							<input type="submit"  class="btn theme-button" [disabled]="!loginForm.valid" value="Login"  >
+						</div>
+					</form>
+
+					<!--div class="alert alert-success" *ngIf="isLoggedIn">
+						Logged in as {{ roles }}	
+
+					</div--> 
+					<div class="social-icons">
+						<p class="continue"><span>Or</span></p>
+						<div class="social-login">
+						<a href="#facebook">
+							<div class="facebook">
+								<span class="fa fa-facebook" aria-hidden="true"></span>
+								
+							</div>
+						</a>
+						<a href="#google">
+							<div class="google">
+								<span class="fa fa-google-plus" aria-hidden="true"></span>
+							</div>
+						</a>
+					</div>
+				</div>
+					<p class="signup">Don't have an account? <a routerLink="/register" class="signuplink">Sign Up</a></p>
+				</div>
+
+				<!-- copyright -->
+				<div class="copy-right">
+					<p>© 2020 CED Europe. All rights reserved | Design by <a href="https://www.linkedin.com/in/samira-krizi-162b09167/"
+							target="_blank">Samira KRIZI</a></p>
+				</div>
+				<!-- //copyright -->
+			</div>
+		</div>
+	</section>
+</body>
+</html>

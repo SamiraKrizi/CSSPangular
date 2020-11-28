@@ -1,33 +1,37 @@
 <form #form="ngForm">
     <div class="container-fluid px-1 py-5 mx-auto">
     <div class="row d-flex justify-content-center">
-        <div class="col-xl-7 col-lg-7 col-md-6" style="position: relative">
+        <div class="col-xl-7 col-lg-7 col-md-6" style ="position: relative">
             <div class="card b-0">
-                <h3 class="heading">Select an option</h3>
-                <ul id="progressbar" class="text-center">
-                    <li class="active step0" id="step1"></li>
-                    <li class="step0" id="step2"></li>
-                    <li class="step0" id="step3"></li>
-                </ul>
+                <h1 class="heading">Select an option</h1>
+
                 <fieldset class="show">
                     <div class="form-card">
-                        <h5 class="sub-heading">Please complete as much information as you have available, you can always log back in to add additional pieces of information</h5>
+                        <h4 class="sub-heading">
+                            Please complete as much information as you have available, 
+                            you can always log back in to add additional pieces of information</h4>
                         <div class="row px-1 radio-group">
-                            <div class="card-block text-center radio selected">
-                                <div class="image-icon"> <img class="icon icon1" src="https://i.imgur.com/vZxfo9x.png"> </div>
-                                <p class="sub-desc">Edit your Personal information</p>
+                            <div class="card-block text-center radio">
+                                <div class="image-icon"> <img class="icon icon1 fit-image" src="https://i.imgur.com/vZxfo9x.png"> </div>
+                                <input type="submit" class="sub-desc" value="Edit profil"   routerLink="/profil"> 
                             </div>
+ 
                             <div class="card-block text-center radio">
                                 <div class="image-icon"> <img class="icon icon1 fit-image" src="https://i.imgur.com/HnX40f4.png"> </div>
-                                <input type="submit" class="sub-desc" value="Add New Claim"   routerLink="/claim/add"> 
+                                <input type="submit" class="sub-desc" value="Add claim"   routerLink="/claim/add"> 
                             </div>
+
                             <div class="card-block text-center radio">
                                 <div class="image-icon"> <img class="icon icon1 fit-image" src="https://i.imgur.com/ynKYPkk.png"> </div>
-                                <p class="sub-desc">Access and Edit Your claim </p>
+                                <input type="submit" class="sub-desc" value="Edit claim"   routerLink="/claim/add"> 
                             </div>
+
+                            <div class="card-block text-center radio">
+                                <div class="image-icon"> <img class="icon icon1 fit-image" src="https://i.imgur.com/vZxfo9x.png"> </div>
+                                <input type="submit" class="sub-desc" value="Show response"   routerLink="/claim/add"> 
+                            </div>
+
                         </div> 
-                        <input type="submit" class="btn-block btn-primary mt-3 mb-1 next" value="Next" [disabled]="form.invalid" data-target="#PersonalInfo"  >
-                        <span class="fa fa-long-arrow-right"></span>
                     </div>
                 </fieldset>   
             </div>

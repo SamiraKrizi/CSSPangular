@@ -1,13 +1,23 @@
 
-enum FileType {
+/*enum FileType {
     PoliceReport,
     AccidentPhotos ,
     Invoices ,
     Other 
-}
+}*/
+
 export class Claim {
+    
     ClaimID : number;
-    UserID : number;
+    UserID : number = 1;
+    ClaimDate : string;
+
+     
+    DetailsID : number;
+    Location   : string;
+    AccidentDate   : string;
+    BodilyInjury  : string;
+    Description  : string;
 
     DocumentsID : number;
     File : File; 
@@ -15,15 +25,10 @@ export class Claim {
     Size : number
 
     otherPartyID : number;
-    VehicleRegistration : String;
     DriverName : String;
     PolicyHolderName : string;
     RegistrationCountry : String;
-    
-    DetailsID : number;
-    Location   : string;
-    AccidentDate   : string;
-    BodilyInjury  : string;
-    Description  : string;
+    VehicleRegistration : String;
+
 
 }

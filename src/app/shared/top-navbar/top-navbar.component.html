@@ -1,33 +1,9 @@
 
-<head>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8" />
-    <meta name="keywords" content="Insurance Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
-    <script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    
-    <!-- //online-fonts -->
-</head>
-
-
-    <!-- banner -->
-    <div class="banner" id="home">
-        <!-- header -->
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-gradient-secondary">
-                <h1>
-                    <a class="navbar-brand text-white"  routerLink="/home">
-                        CSSP
-                    </a>
+            <nav *ngIf="nav.visible" class="navbar navbar-expand-lg navbar-light bg-gradient-secondary">
+                
+                <h1>  
+                        <img  class="navbar-brand text-white" src="/assets/images/ced.png" width="80" height="45" routerLink="/home">
                 </h1>
                 <button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,40 +11,38 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-lg-auto text-center">
-                        <li class="nav-item active  mr-lg-3 mt-lg-0 mt-3">
+                        <li class="nav-item   mr-lg-3 mt-lg-0 mt-3">
                             <a class="nav-link" routerLink="/home">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
-                            <a class="nav-link scroll" data-toggle="modal" aria-pressed="false"
-                            data-target="#exampleModal"  routerLink="/menu/options">Claim us</a>
+                            <a class="nav-link scroll" routerLink="/menu/options"> Services </a>
                         </li>
+
                         <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
-                            <a class="nav-link scroll" routerLink="">about</a>
+                            <a class="nav-link scroll" routerLink="/chat"> Get Informed </a>
+                        </li>
+
+                        <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
+                            <a class="nav-link scroll" >About</a>
                         </li>
                         <li class="nav-item mr-lg-3 mt-lg-0 mt-3">
-                            <a class="nav-link scroll" href="">Contact</a>
+                            <a class="nav-link scroll" >Contact</a>
                         </li>
-                        <li>
-                            <button type="button" class="btn  ml-lg-2 w3ls-btn" data-toggle="modal" aria-pressed="false"
-                                data-target="#exampleModal">
-                                <i class="fa fa-user-circle"></i>
-                                <a routerLink="/menu/options" ></a>
-                            </button>
-                            <!--a *ngIf="auth.isLoggedIn()" routerLink="/menu/options"></a-->
-                        </li>   
+                       
+                        <li class="nav-item mr-lg-3 mt-lg-0 mt-3" *ngIf="isLoggedIn">
+                            <a class="nav-link scroll"  > {{ roles }} </a></li>
+
+
+                            <li class="nav-item mr-lg-3 mt-lg-0 mt-3" *ngIf="isLoggedIn">
+                                <a class="nav-link scroll" (click)="logout()"> <i class="fas fa-sign-out-alt"></i> </a>
+                            </li>     
+                    
+                          
                     </ul>
                 </div>
 
             </nav>
-        </header>
-        <div class="container">
-            <div class="banner-text">
-                <div class="slider-info">
-                    <h3 >That which is of value,</h3>
-                    <h3>  must remain of value</h3>
-                   
-                </div>
-            </div>
-        </div>
+
+       

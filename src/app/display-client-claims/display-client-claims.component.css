@@ -1,0 +1,46 @@
+h1
+{
+    text-align: center;
+    color: blueviolet;
+}
+
+#claims {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #claims td, #claims th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #claims tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #claims tr:hover {background-color: #ddd;}
+  
+  #claims th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #337AB7;
+    color: white;
+  }
+  .border{
+    padding: 10px;
+  }
+  .btn{
+    margin-right: 10px;
+  }
+  .fa {
+    margin-right: 10px;
+  }
+  table .btn{
+    margin: 2px;
+  }
+  .container{
+
+    max-width: 1550px;
+    margin-top: 20em;
+  }
+ 

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, OnInit, Injectable } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, OnInit, Injectable, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, NgForm } from '@angular/forms';
 
 import { StepperComponent } from '@progress/kendo-angular-layout';
@@ -9,298 +9,192 @@ import { Observable, of, concat } from 'rxjs';
 import { DocumentsService } from '../service/documents.service';
 import { OtherPartyService } from '../service/other-party.service';
 import { DetailsService } from '../service/details.service';
-import { HttpHandler, HttpRequest, HttpEvent, HttpEventType, HttpResponse, HttpInterceptor, HttpProgressEvent } from '@angular/common/http';
+import { HttpHandler, HttpRequest, HttpEvent, HttpEventType, HttpResponse, HttpInterceptor, HttpProgressEvent, HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
+import { NavbarService } from '../service/navbar.service';
+import { FooterService } from '../service/footer.service';
+import { AuthenticationService } from '../service/authentication.service';
 
 
 @Component({
   selector: 'app-claim',
-  template: `
-  <div class="example">
-      <kendo-stepper
-          #stepper
-          [steps]="steps"
-          [stepType]="'full'"
-          [(currentStep)]="currentStep"
-          [style.width.px]="900"
-          [style.margin-top.px]="80"
-          [style.margin-bottom.px]="30"
-
-      >
-      </kendo-stepper>
-
-      <div class="content">
-          <form class="k-form" [formGroup]="form">
-            
-
-              <app-accident
-                  *ngIf="currentStep === 0"
-                  [details]="currentGroup">
-              </app-accident>
-
-              <app-documents
-              *ngIf="currentStep === 1"
-              [documents]="currentGroup">
-          </app-documents>
-
-          <app-other-party
-              *ngIf="currentStep === 2"
-              [otherParty]="currentGroup">
-          </app-other-party>
-
-
-              <span class="k-form-separator"></span>
-
-              <div class="k-form-buttons k-buttons-end">
-                  <span class="page">Step {{ currentStep + 1 }} of 3</span>
-                  <div>
-                      <button
-                          class="k-button prev"
-                          *ngIf="currentStep !== 0"
-                          (click)="prev()"
-                      >
-                          Previous 
-                      </button>
-                      <button class="k-button k-primary" (click)="next()" *ngIf="currentStep !== 2">
-                          Next
-                      </button>
-            
-          <button class="k-button k-primary" type="button" (click)="submit($event)" *ngIf="currentStep === 2">Submit</button>
-
-              <kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')" [minWidth]="250" [width]="450">
-                  <p style="margin: 30px; text-align: center;">Are you sure you want to continue?</p>
-                  <kendo-dialog-actions>
-                      <button kendoButton (click)="close('no')">No</button>
-                      <button kendoButton (click)="close('yes')" primary="true">Yes</button>
-                  </kendo-dialog-actions>
-              </kendo-dialog>
-            </div>
-            </div>
-       
-
-          </form>
-      </div>
-  </div>
-`,
-encapsulation: ViewEncapsulation.None,
-styles: [`
-.example {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top : 100px;
-}
-.k-stepper {
-  align-self: center;
-}
-.k-step {
-  pointer-events: none;
-}
-.k-button.prev {
-  margin-right: 18px;
-}
-.example .content {
-  align-self: center;
-}
-.k-form-separator {
-  margin-top: 100px;
-}
-.k-buttons-end {
-  justify-content: space-between;
-  align-content: center;
-}
-.page {
-  align-self: center;
-}
-.k-form {
-  width: 850px;
-}
-`]
+  templateUrl: './claim.component.html',
+  styleUrls: ['./claim.component.css']
 })
 
-export class ClaimComponent {
+export class ClaimComponent implements OnInit {
 
-    dataSaved = false;  
-    claimForm: any;  
-    allClaim: Observable<Claim[]>;  
-    //claimIdUpdate = null;  
-    massage = null; 
+  dataSaved = false;
+  claim: Claim;
+  allClaim: Observable<Claim[]>;
+  //claimIdUpdate = null;  
+  //massage = null; 
+  public progress: number;
+  public message: string;
 
-  public currentStep = 0;
-  today = new Date();
+  @Output() public onUploadFinished = new EventEmitter();
 
-  @ViewChild('stepper', { static: true })
-  public stepper: StepperComponent;
 
-  private isStepValid = (index: number): boolean => {
-      return this.getGroupAt(index).valid || this.currentGroup.untouched;
-  }
-
-  private shouldValidate = (index: number): boolean => {
-      return this.getGroupAt(index).touched && this.currentStep >= index;
-  }
-
-  public steps = [
-        {
-            label: 'Accident Details',
-            isValid: this.isStepValid,
-            validate: this.shouldValidate
-        },
-        {
-            label: 'Add Documents ',
-            isValid: this.isStepValid,
-            validate: this.shouldValidate
-        },
-        {
-            label: 'Other Party',
-            isValid: this.isStepValid,
-            validate: this.shouldValidate
-        },
-
+  countryList: Array<any> = [
+    { name: 'Germany' }, { name: 'Spain' }, { name: 'USA' },
+    { name: 'Mexico' }, { name: 'China' }, { name: 'Albania', },
+    { name: 'Andorra' }, { name: 'Armenia' }, { name: 'Austria' },
+    { name: 'Azerbaijan' }, { name: 'Belarus' }, { name: 'Belgium' },
+    { name: 'Bosnia & Herzegovina' }, { name: 'Bulgaria' },
+    { name: 'Cyprus' }, { name: 'Czech Republic' }, { name: 'Denmark' },
+    { name: 'Estonia' }, { name: 'Finland' }, { name: 'France' },
+    { name: 'Germany' }, { name: 'Greece' }, { name: 'Hungary' },
+    { name: 'Iceland' }, { name: 'Ireland' }, { name: 'Italy' },
+    { name: 'Latvia' }, { name: 'Liechtenstein' }, { name: 'Lithuania' },
+    { name: 'Luxembourg' }, { name: 'Macedonia' }, { name: 'Malta' },
+    { name: 'Moldova' }, { name: 'Monaco' }, { name: 'Montenegro' },
+    { name: 'Netherlands' }, { name: 'Norway' }, { name: 'Poland' },
+    { name: 'Portugal' }, { name: 'Romania' }, { name: 'Russia' },
+    { name: 'San Marino' }, { name: 'Serbia' }, { name: 'Slovakia' },
+    { name: 'Slovenia' }, { name: 'Spain' }, { name: 'Sweden' },
+    { name: 'Switzerland' }, { name: 'Turkey' }, { name: 'Tunisia' },
+    { name: 'Ukraine' }, { name: 'United Kingdom' }, { name: 'Vatican City' },
+    { name: 'Kosovo' }, { name: 'Georgia' }, { name: 'Croatia' },
   ];
+  Selectedcountry = null;
+
 
   public form = new FormGroup({
 
+
     details: new FormGroup({
-        location: new FormControl('', Validators.required),
-        accidentDate: new FormControl(new Date(2000, 10, 10), Validators.required),
-        bodilyInjury: new FormControl('', Validators.required),
-        description: new FormControl('', Validators.required),
+      location: new FormControl('', Validators.required),
+      accidentDate: new FormControl(new Date(2000, 10, 10), Validators.required),
+      bodilyInjury: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
 
     }),
     documents: new FormGroup({
-        policeReport: new FormControl(null, [Validators.required]),
-        accidentPhotos: new FormControl(null, [Validators.required]),
-        injuryReport: new FormControl(null, [Validators.required]),
-        invoices: new FormControl(null, [Validators.required]),
-        other: new FormControl(null)
+      policeReport: new FormControl(null, [Validators.required]),
+      accidentPhotos: new FormControl(null, [Validators.required]),
+      injuryReport: new FormControl(null, [Validators.required]),
+      invoices: new FormControl(null, [Validators.required]),
+      other: new FormControl(null)
     }),
     otherParty: new FormGroup({
-        driverName: new FormControl('', [Validators.required]),
-        policyHolderName: new FormControl('', [Validators.required]),
-        registrationCountry: new FormControl('', [Validators.required]),
-        vehicleRegistration: new FormControl('', [Validators.required]),
+      driverName: new FormControl('', [Validators.required]),
+      policyHolderName: new FormControl('', [Validators.required]),
+      registrationCountry: new FormControl('', [Validators.required]),
+      vehicleRegistration: new FormControl('', [Validators.required]),
     }),
   })
 
 
 
-    
-    public get currentGroup(): FormGroup {
-        return this.getGroupAt(this.currentStep);
-  }
+  constructor(public service: ClaimService, public serviceDetails: DetailsService,
+    public serviceOther: OtherPartyService, public serviceDoc: DocumentsService,
+    private toastr: ToastrService, public nav: NavbarService, public fot: FooterService,
+    private http: HttpClient, private auth: AuthenticationService) { }
 
-  public next(): void {
-      if (this.currentGroup.valid && this.currentStep !== this.steps.length) {
-          this.currentStep += 1;
-          return;
-      }
 
-      this.currentGroup.markAllAsTouched();
-      this.stepper.validateSteps();
-  }
-
-  public prev(): void {
-      this.currentStep -= 1;
-  }
-
-  private getGroupAt(index: number): FormGroup {
-      const groups = Object.keys(this.form.controls).map(groupName =>
-          this.form.get(groupName)
-          ) as FormGroup[];
-
-      return groups[index];
-  }
-
-  constructor(public service : ClaimService,public serviceDetails : DetailsService,
-    public serviceOther : OtherPartyService,public serviceDoc : DocumentsService,
-    private toastr: ToastrService) { } 
   ngOnInit(): void {
-   // this.resetForm();
+    this.nav.show();
+    this.nav.doSomethingElseUseful();
+    //this.fot.show2();
+    // this.fot.doSomethingElseUseful2();  
+    this.resetForm();
   }
 
-  OClaim : Claim[];
+
+  formData: FormData = new FormData();
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    this.formData = new FormData();
+    this.formData.append('File', fileToUpload, fileToUpload.name);
+  }
+
+
+
 
   resetForm(form?: NgForm) {
     if (form != null)
-      form.resetForm();
+      form.reset();
     this.service.formData = {
-        ClaimID : 0,
-        UserID : 0,
-        ClaimDate : '',
-        DocumentsID : 0,
-        Type : '',
-        File :File = null,
-        Size : 0,
-        otherPartyID : 0,
-        VehicleRegistration : '',
-        DriverName : '',
-        PolicyHolderName : '',
-        RegistrationCountry : '',
-        DetailsID : 0,
-        Location   : '',
-        AccidentDate   : '',
-        BodilyInjury  : '',
-        Description  : '',
+      ID: 0,
+      UserID: '',
+
+      claimUploadedBy: '',
+      claimUploadDate: '',
+      Location: '',
+      AccidentDate: '',
+      BodilyInjury: '',
+      Description: '',
+      Status: '',
+      Reply : '',
+
+      File: null,
+
+      VehicleRegistration: '',
+      DriverName: '',
+      PolicyHolderName: '',
+      RegistrationCountry: '',
     }
   }
-  public opened = false;
-  public close(status) {
-    console.log(`Dialog result: ${status}`);
-    this.opened = false;
-  }
-  submit(form: NgForm) {  
-    this.opened = true;
-    if (form.value == null)
-    this.service.postClaim(this.form.value).subscribe(res => {
-        var data = sessionStorage.getItem('id');
-        console.log(data)
-        this.serviceDetails.postDetails;
-        this.serviceDoc.upload;
-        this.serviceOther.postOther;
 
+  /************************************************************************************************************ */
+  onSubmit(form: NgForm) {
+    this.InsertClaim(form);
+  }
+  InsertClaim(form: NgForm) {
+
+    //  if (form.value == null)
+
+    this.formData.append('Location', this.service.formData.Location);
+    this.formData.append('AccidentDate', this.service.formData.AccidentDate);
+    this.formData.append('BodilyInjury', this.service.formData.BodilyInjury);
+    this.formData.append('Description', this.service.formData.Description);
+    this.formData.append('VehicleRegistration', this.service.formData.VehicleRegistration);
+    this.formData.append('DriverName', this.service.formData.DriverName);
+    this.formData.append('PolicyHolderName', this.service.formData.PolicyHolderName);
+    this.formData.append('RegistrationCountry', this.service.formData.RegistrationCountry);
+    const user = JSON.parse(sessionStorage.getItem('auth-user'))["userName"];
+    console.log(user);
     
-        this.toastr.success('Inserted successfully', 'calim. added');
-          //this.claimForm.reset();  
-            this.loadAllClaims();  
-          //this.claimIdUpdate = null;  
-    console.log('you submitted value: ',this.form.value);
-    });
-}
-loadAllClaims() {  
-    this.allClaim = this.service.getAllClaims();  
+    this.formData.append('user',user );
+    this.http.post('https://localhost:44301/api/csspClaims', this.formData, { reportProgress: true, observe: 'events' })
+      .subscribe(event => {
+
+        if (event.type === HttpEventType.UploadProgress)
+          this.progress = Math.round(100 * event.loaded / event.total);
+        else if (event.type === HttpEventType.Response) {
+
+          this.message = 'Upload success.';
+          this.onUploadFinished.emit(event.body);
+          this.toastr.success('claim successfully added', 'please up to date and check your your claim');
+          this.service.refreshList();
+          this.resetForm(form)
+        }
+      });
+
+    // this.service.postClaim(this.form.value).subscribe(res=>{
+    // this.toastr.success('User successfully added', 'please enter your login details to start your claim');
+
+    //     this.resetForm(form)
+    //     })
   }
+  /**************************************************************************************************************** */
 
- insertRecord(form: NgForm) {
-    this.service.postClaim(this.form.value).subscribe(res => {
 
-    
-   this.toastr.success('Inserted successfully', 'calim. added');
-     // this.resetForm(form);
-      //this.service.refreshList();
-    });
-  }
-}
-@Injectable()
-export class UploadInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url === 'saveUrl') {
-      const events: Observable<HttpEvent<any>>[] = [0, 30, 60, 100].map((x) => of(<HttpProgressEvent>{
-        type: HttpEventType.UploadProgress,
-        loaded: x,
-        total: 100
-      }).pipe(delay(1000)));
-
-      const success = of(new HttpResponse({ status: 200 })).pipe(delay(1000));
-      events.push(success);
-
-      return concat(...events);
+  /*loadAllClaims() {  
+      this.allClaim = this.service.getAllClaims();  
     }
-
-    if (req.url === 'removeUrl') {
-        return of(new HttpResponse({ status: 200 }));
-    }
-
-    return next.handle(req);
-  }
+  
+  /* insertRecord(form: NgForm) {
+      this.service.postClaim(this.form.value).subscribe(res => {
+  
+      
+     this.toastr.success('Inserted successfully', 'calim. added');
+       // this.resetForm(form);
+        //this.service.refreshList();
+      });
+    }*/
 }
+

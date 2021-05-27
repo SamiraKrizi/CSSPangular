@@ -1,12 +1,15 @@
 export class User {
-    Id : number;
-    Email : String;
-    Name : String;
-    Password : String;
-    ConfirmPassword : String;
-    VehicleRegistration : String;
-    RegistrationCountry : String;
-    PhoneNumber : String;
+    UserID : string;
+    Email : string;
+    Name : string;
+    Password : string;
+    ConfirmPassword : string;
+    VehicleRegistration : string;
+    RegistrationCountry : string;
+    PhoneNumber : string;
+    token?: string;
     ClaimDate : Date;
-   // ClaimID : number
+    //Roles : string;
+    IsDeleted : boolean
 }
+

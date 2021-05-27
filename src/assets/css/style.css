@@ -189,7 +189,7 @@ Author URL: http://w3layouts.com
 
   .login-remember {
       grid-template-columns: auto auto;
-      justify-content: space-between;
+      /*justify-content: space-between;*/
       align-items: center;
       margin-top: 2rem;
   }

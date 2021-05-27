@@ -1,0 +1,42 @@
+<div class="py-lg-5" id="testi">
+  <div class="container py-5">
+    <div class="text-center py-lg-5">
+      <div class="title-section pb-4" style="margin-top: 8rem;">
+        <h3 class="main-title-agile">you are in good hands</h3>
+        <span class="title-line" style="margin-bottom: 0.1rem;" >
+        </span>
+    </div>
+      <div *ngFor="let companies of service.list">
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+
+
+                <div class="card mb-2" style="background-color: #86bc35;">
+
+
+                  <div class="form-group" style="padding-top: 0rem;">
+                    <img [src]="'data:image/png;base64,'+companies.Logo" style="height:10rem;width:10rem" />
+                    <div class="card-body" >
+                      <h4 class="card-title" style="color: white; font-weight: bold;">Insurance Company</h4>
+                      <p class="card-text" style="color: white; font-weight: bold;">For more information about the
+                        company and subscription please contact us via our chatbot bellow.
+                      </p>
+                      <a class="btn btn"
+                        style="color: white; font-weight: bold; background-color: #3899dd;">Navigate</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>

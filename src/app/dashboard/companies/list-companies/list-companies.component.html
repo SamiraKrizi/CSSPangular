@@ -1,0 +1,9 @@
+<h4 style="color: #56238e; font-weight: bold;">LIST OF COMPANIES</h4>
+<table class="table table-hover">
+    <tr *ngFor="let comp of service.list" style="font-weight: bold;">
+        <td (click)="populateForm(comp)">{{comp.ID}}</td>
+        <td (click)="populateForm(comp)">{{comp.Name}}</td>
+        <td (click)="populateForm(comp)"><img [src]="'data:image/png;base64,'+comp.Logo" style="height:70px;width:90px" /></td>
+        <td><button (click)="onDelete(comp.ID)" class="btn btn-sm btn-outline-danger">X</button></td>
+    </tr>
+</table>

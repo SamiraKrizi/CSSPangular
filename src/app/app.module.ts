@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import {  ReactiveFormsModule } from '@angular/forms';  
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
@@ -23,7 +23,6 @@ import { UploadsModule } from '@progress/kendo-angular-upload';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
-
 import { UploadInterceptor } from './service/upload-interceptor.model';
 import { ToastrModule } from 'ngx-toastr';
 import { DialogModule, DialogsModule } from '@progress/kendo-angular-dialog';
@@ -33,23 +32,29 @@ import { AccidentComponent } from './accident/accident.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { RatingComponent } from './rating/rating.component';
 
-import { ChatModule } from './chat/chat.module';
 import { UserComponent } from './user/user.component';
 import { ProfilComponent } from './user/profil/profil.component';
-import { AdminComponent } from './user/admin/admin.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-
-
-
-
-
-
+import { AdminComponent } from './dashboard/admin/admin.component';
+import { ShowClaimComponent } from './dashboard/show-claims/show-claim.component';
+import { CommonModule } from '@angular/common';
+import { OrderModule } from 'ngx-order-pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { CompaniesComponent } from './dashboard/companies/companies.component';
+import { AddCompanyComponent } from './dashboard/companies/add-company/add-company.component';
+import { ListCompaniesComponent } from './dashboard/companies/list-companies/list-companies.component';
+import { OurClientsComponent } from './our-clients/our-clients.component';
+import { ClaimService } from './service/claim.service';
+import { DisplayClientClaimsComponent } from './display-client-claims/display-client-claims.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
   declarations: [
-    
     AppComponent,
     TopNavbarComponent,
     FooterComponent,
@@ -64,10 +69,17 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     RatingComponent,
     AdminComponent,
     ProfilComponent,
-    UserComponent
-    
-    
+    UserComponent,
+    ShowClaimComponent,
+    AddCompanyComponent,
+    ListCompaniesComponent,
+    CompaniesComponent,
+    OurClientsComponent,
+    DisplayClientClaimsComponent,
+    ForbiddenComponent,    
+      
   ],
+  
   imports: [
     BrowserModule,
     FormsModule,
@@ -88,14 +100,17 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     ButtonsModule,
     ToastrModule.forRoot(),
     DialogsModule,
-    ChatModule
+    CommonModule,
+    OrderModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
+    
   ],
 
-  providers: [UserService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UploadInterceptor,
-      multi: true
+  providers: [UserService,ClaimService,AuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
   }],
   bootstrap: [AppComponent]
 })

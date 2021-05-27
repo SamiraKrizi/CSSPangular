@@ -3,12 +3,9 @@
             <nav *ngIf="nav.visible" class="navbar navbar-expand-lg navbar-light bg-gradient-secondary">
                 
                 <h1>  
-                        <img  class="navbar-brand text-white" src="/assets/images/ced.png" width="80" height="45" routerLink="/home">
+                        <img  class="navbar-brand text-white" src="/assets/images/logo.png" width="82px" height="" routerLink="/home">
                 </h1>
-                <button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+       
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-lg-auto text-center">
                         <li class="nav-item   mr-lg-3 mt-lg-0 mt-3">
@@ -17,15 +14,11 @@
                             </a>
                         </li>
                         <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
-                            <a class="nav-link scroll" routerLink="/menu/options"> Services </a>
+                            <a class="nav-link scroll" routerLink="/options"> Services </a>
                         </li>
 
                         <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
-                            <a class="nav-link scroll" routerLink="/chat"> Get Informed </a>
-                        </li>
-
-                        <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
-                            <a class="nav-link scroll" >About</a>
+                            <a class="nav-link scroll" routerLink="/aboutUs" >About</a>
                         </li>
                         <li class="nav-item mr-lg-3 mt-lg-0 mt-3">
                             <a class="nav-link scroll" >Contact</a>
@@ -35,12 +28,13 @@
                             <a class="nav-link scroll"  > {{ roles }} </a></li>
 
 
-                            <li class="nav-item mr-lg-3 mt-lg-0 mt-3" *ngIf="isLoggedIn">
-                                <a class="nav-link scroll" (click)="logout()"> <i class="fas fa-sign-out-alt"></i> </a>
-                            </li>     
+                        <li class="nav-item mr-lg-3 mt-lg-0 mt-3" *ngIf="isLoggedIn">
+                                <a class="nav-link scroll" (click)="logout()"> <i class="fa fa-sign-out-alt"></i> </a>
+                        </li>     
                     
                           
                     </ul>
+   
                 </div>
 
             </nav>

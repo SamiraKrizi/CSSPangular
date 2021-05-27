@@ -1,0 +1,42 @@
+
+
+                <!----------------------------------------------------------------------------------------------------------------------------------------------->
+
+                <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off" class="claim-form">
+                <div class="form-inner-cont" style="padding: 0rem;">
+                <h4 style="color: #56238e; font-weight: bold">ADD NEW COMPANY</h4>
+
+                    <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;"> Company's Name
+                    </p>
+                    <div class="form-input">
+                        <span class="fa fa-user-o" aria-hidden="true"></span>
+                        <input type="text" class="form-control" placeholder="Name" name="Name" #Name="ngModel"
+                        [(ngModel)]="service.formData.Name" required />
+                    </div>
+                            <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">
+                                Accident Photo</p>
+                            <div class="form-input">
+                                <span class="fa fa-file-o" aria-hidden="true"></span>
+                                <input type="file" accept=".jpg,.jpeg,.png" (change)="uploadFile(logo.files)"
+                                    class="form-control" name="Logo" #logo value="Logo"
+                                    [(ngModel)]="service.formData.Logo" required  />
+                            </div>
+                            <h5 style="color: #56238e">Only(.jpg,.jpeg,.png format is accepted)</h5>
+                            <div class="col-md-4">
+                                <span class="upload" *ngIf="progress > 0">
+                                    {{progress}}%
+                                </span>
+                                <span class="upload" *ngIf="message">
+                                    {{message}}
+                                </span>
+                            </div>
+                            <div class="login-remember d-grid">
+                                <button type="submit" class="btn theme-button" value="Register"
+                                    [disabled]="form.invalid"
+                                    style="background-color: #86bc35; color: #ffff; font-weight: bold; margin-right: 200px;">Save</button>
+                    </div>
+                </div>
+                </form>
+
+                <!----------------------------------------------------------------------------------------------------------------------------------------------->
+

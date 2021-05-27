@@ -1,16 +1,15 @@
-
-
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-		<!-- Meta tags -->
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<!-- //Meta tags -->
-    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" media="all" /><!-- Style-CSS -->
-    <link href="/assets/css/font-awesome.css" rel="stylesheet"><!-- font-awesome-icons -->
+	<!-- Meta tags -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- //Meta tags -->
+	<link rel="stylesheet" href="/assets/css/style.css" type="text/css" media="all" /><!-- Style-CSS -->
+	<link href="/assets/css/font-awesome.css" rel="stylesheet">
+	<!-- font-awesome-icons -->
 </head>
 
 <body>
@@ -19,86 +18,133 @@
 			<div class="wrapper">
 				<div class="form-inner-cont">
 					<h3 style="color: #56238e; font-weight: bold;">Create your account</h3>
-					<form #form="ngForm" (submit)="onSubmit(form)" autocomplete = "off" class="signin-form">
-
-
+					<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off" class="signin-form" novalidate>
 
 						<div class="form-input">
-							<span class="fa fa-user-o" aria-hidden="true"></span> 
-							<input type="text"  #name="ngModel"  class="form-control"  name="Name" #Name = "ngModel" [(ngModel)]="service.formData.Name" required placeholder="Full Name" />
+							<span class="fa fa-user-o" aria-hidden="true"></span>
+							<input type="text" #name="ngModel" class="form-control" name="Name" #Name="ngModel"
+								[(ngModel)]="service.formData.Name" required placeholder="Username" />
 							<div *ngIf="name.errors && (name.invalid && name.touched)">
-								<div class="validation-error"  *ngIf="name.errors.required"> Name required</div>
+								<div class="validation-error" *ngIf="name.errors.required"> Name required</div>
 							</div>
 						</div>
 
-
-
 						<div class="form-input">
-							<span class="fa fa-envelope-o" aria-hidden="true"></span> 
-							<input type="email"  #email="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"  name="Email" #Email = "ngModel" [(ngModel)]="service.formData.Email" required placeholder="Email" />
+							<span class="fa fa-envelope-o" aria-hidden="true"></span>
+							<input type="email" #email="ngModel" required
+								pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="Email"
+								#Email="ngModel" [(ngModel)]="service.formData.Email" required placeholder="Email" />
 							<div *ngIf="email.errors && (email.invalid && email.touched)">
-								<div class="validation-error"  *ngIf="email.errors.required"> Email required</div>
-								<div class="validation-error" *ngIf="email.errors.pattern">Please provide a valid email address</div>
+								<div class="validation-error" *ngIf="email.errors.required"> Email required</div>
+								<div class="validation-error" *ngIf="email.errors.pattern">Please provide a valid email
+									address</div>
 							</div>
 						</div>
 
-
 						<div class="form-input">
-							<span  class="fa fa-car" aria-hidden="true"></span> 
-							<input type="text" #VehicleRegistration="ngModel"  required pattern= "^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$" class="form-control"  name="VehicleRegistration" #VehicleRegistration = "ngModel" [(ngModel)]="service.formData.VehicleRegistration" required placeholder="Vehicle Registration XX zz XX zzzz" />
-							<div *ngIf="VehicleRegistration.errors && (VehicleRegistration.invalid && VehicleRegistration.touched)">
-								<div class="validation-error"  *ngIf="VehicleRegistration.errors.required"> Vehicle Registration is required</div>
-								<div class="validation-error" *ngIf="VehicleRegistration.errors.pattern">Please provide a valid Vehicle Registration </div>
+							<span class="fa fa-car" aria-hidden="true"></span>
+							<input type="text" #VehicleRegistration="ngModel" required
+								pattern="^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$" class="form-control"
+								name="VehicleRegistration" #VehicleRegistration="ngModel"
+								[(ngModel)]="service.formData.VehicleRegistration" required
+								placeholder="Vehicle Registration XX zz XX zzzz" />
+							<div
+								*ngIf="VehicleRegistration.errors && (VehicleRegistration.invalid && VehicleRegistration.touched)">
+								<div class="validation-error" *ngIf="VehicleRegistration.errors.required"> Vehicle
+									Registration is required</div>
+								<div class="validation-error" *ngIf="VehicleRegistration.errors.pattern">Please provide
+									a valid Vehicle Registration </div>
 							</div>
 						</div>
 
 						<div class="form-input">
 							<span class="fa fa-home" aria-hidden="true"></span>
-							<select placeholder="Registration Country"  #RegistrationCountry="ngModel"  class="form-control" name="RegistrationCountry" #RegistrationCountry = "ngModel" [(ngModel)]="service.formData.RegistrationCountry" required>
-                                <option *ngFor ="let count of countryList">{{count.name}}</option>
+							<select placeholder="Registration Country" #RegistrationCountry="ngModel"
+								class="form-control" name="RegistrationCountry" #RegistrationCountry="ngModel"
+								[(ngModel)]="service.formData.RegistrationCountry" required>
+								<option value=""> Select Registration Country </option>
+                           
+								<option *ngFor="let count of countryList">{{count.name}}</option>
 							</select>
-							<div *ngIf="RegistrationCountry.errors && (RegistrationCountry.invalid && RegistrationCountry.touched)">
-                                <div class="validation-error"  *ngIf="RegistrationCountry.errors.required"> Registration Country is required</div>
-                        </div>
+							<div
+								*ngIf="RegistrationCountry.errors && (RegistrationCountry.invalid && RegistrationCountry.touched)">
+								<div class="validation-error" *ngIf="RegistrationCountry.errors.required"> Registration
+									Country is required</div>
+							</div>
 						</div>
-
 
 						<div class="form-input">
 							<span class="fa fa-phone" aria-hidden="true"></span>
-                            <input type="text" #PhoneNumber="ngModel" required pattern="" class="form-control" placeholder="Phone Number" name="PhoneNumber" #PhoneNumber = "ngModel" [(ngModel)]="service.formData.PhoneNumber" required>
-                                <div *ngIf="PhoneNumber.errors && (PhoneNumber.invalid && PhoneNumber.touched)">
-                                    <div class="validation-error"  *ngIf="PhoneNumber.errors.required"> Registration Country is required</div>
-                            </div>
-                    </div>
+							<input type="text" #PhoneNumber="ngModel" required pattern="" class="form-control"
+								placeholder="Phone Number" name="PhoneNumber" #PhoneNumber="ngModel"
+								[(ngModel)]="service.formData.PhoneNumber" required>
+							<div *ngIf="PhoneNumber.errors && (PhoneNumber.invalid && PhoneNumber.touched)">
+								<div class="validation-error" *ngIf="PhoneNumber.errors.required"> Registration Country
+									is required</div>
+							</div>
+						</div>
 
 						<div class="form-input">
 							<span class="fa fa-key" aria-hidden="true"></span>
-							<input type="password"  placeholder=" Password "  class="form-control" name="Password" #Password = "ngModel" [(ngModel)]="service.formData.Password" required />
+							<input type="password" class="form-control"  placeholder="Password" name="Password" required  #Password="ngModel"  [(ngModel)]="service.formData.Password" >
+
+
+							<div *ngIf="Password.errors && (Password.invalid && Password.touched)">
+								<div class="validation-error" *ngIf="Password.errors.required"> Password
+									is required</div>
+							</div>
+
+
+							<label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">This field is mandatory.</label>
+							<label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum 4 characters required.</label>
+						  
 						</div>
-						
+
 
 						<div class="form-input">
-							<span class="fa fa-key" aria-hidden="true"></span> 
-							<input type="password" class="form-control"  name="ConfirmPassword" #ConfirmPassword = "ngModel" [(ngModel)]="service.formData.ConfirmPassword"  validateEqual="password" placeholder="Confirm Password" required />
+							<span class="fa fa-key" aria-hidden="true"></span>
+							<input type="password" class="form-control"  placeholder="Confirm Password"  name="ConfirmPassword"  #ConfirmPassword="ngModel"  [(ngModel)]="service.formData.ConfirmPassword"  required>
+							
+							
+							<div *ngIf="ConfirmPassword.errors && (ConfirmPassword.invalid && ConfirmPassword.touched)">
+								<div class="validation-error" *ngIf="ConfirmPassword.errors.passwordMismatch"> Password
+									is required</div>
+							</div>
+							
+							
+							<label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
+							<label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
+						  
+								
 						</div>
 						
 
+						<div class="login-remember d-grid" *ngIf="roles">
+					
+							<ul *ngFor="let item of roles;let i = index">
+							  <li >
+								<input type="checkbox" [id]="'roles-'+i" value="{{item.Id}}" [checked]="item.selected"  (change)="updateSelectedRoles(i)">
+								<span class="checkmark"></span>
+								<label [for]="'roles-'+i">{{item.Name}}</label>
+							  </li>
+							</ul>
+					
+						  </div>
 
 
 
 
 
 
-
-						
 						<div class="login-remember d-grid">
 							<label class="check-remaind">
 								<input type="checkbox">
 								<span class="checkmark"></span>
 								<p class="remember">Remember me</p>
 							</label>
-							
-							<button  type="submit"  class="btn theme-button" value="Register" [disabled]="form.invalid"  style="background-color: #86bc35; color: #ffff;">Signup</button>
+
+							<button type="submit" class="btn theme-button" value="Register" [disabled]="form.invalid"
+								style="background-color: #86bc35; color: #ffff;">Signup</button>
 						</div>
 					</form>
 
@@ -106,30 +152,32 @@
 					<div class="social-icons">
 						<p class="continue"><span>Or</span></p>
 						<div class="social-login">
-						<a href="#facebook">
-							<div class="facebook">
-								<span class="fa fa-facebook" aria-hidden="true"></span>
-								
-							</div>
-						</a>
-						<a href="#google">
-							<div class="google">
-								<span class="fa fa-google-plus" aria-hidden="true"></span>
-							</div>
-						</a>
+							<a href="#facebook">
+								<div class="facebook">
+									<span class="fa fa-facebook" aria-hidden="true"></span>
+
+								</div>
+							</a>
+							<a href="#google">
+								<div class="google">
+									<span class="fa fa-google-plus" aria-hidden="true"></span>
+								</div>
+							</a>
+						</div>
 					</div>
-				</div>
 					<p class="signup">Already a member? <a routerLink="/login" class="signuplink">Login</a></p>
 				</div>
 
 				<!-- copyright -->
 				<div class="copy-right">
-					<p>© 2020 CED Europe. All rights reserved | Design by <a href="https://www.linkedin.com/in/samira-krizi-162b09167/"
-							target="_blank">Samira KRIZI</a></p>
+					<p>© 2020 CED Europe. All rights reserved | Design by <a
+							href="https://www.linkedin.com/in/samira-krizi-162b09167/" target="_blank">Samira KRIZI</a>
+					</p>
 				</div>
 				<!-- //copyright -->
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

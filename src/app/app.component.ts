@@ -1,12 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation, Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StepperComponent } from '@progress/kendo-angular-layout';
-import { User } from './service/user.model';
-import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType, HttpResponse, HttpProgressEvent } from '@angular/common/http';
-import { UserService } from './service/user.service';
-import { AuthenticationService } from './service/authentication.service';
-import { Observable, of, concat } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Component} from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -17,35 +9,49 @@ import { delay } from 'rxjs/operators';
 
 
 export class AppComponent {
-  isAuthenticated: boolean;
-  formData : User;
+  title = 'my-app';
+  ngOnInit() {
+      (function(d, m){
+          var kommunicateSettings = {"appId":"d5302ebe2ef0e398fbb3c463842a2f47","popupWidget":true,"automaticChatOpenOnNavigation":true};
+          var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+          s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+          var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+          (window as any).kommunicate = m; m._globals = kommunicateSettings;
+          
+      })(document, (window as any).kommunicate || {});
 
-  constructor(public authService : AuthenticationService) { }
-  private token: string
-  
 
-}
 
-@Injectable()
-export class UploadInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url === 'saveUrl') {
-      const events: Observable<HttpEvent<any>>[] = [0, 30, 60, 100].map((x) => of(<HttpProgressEvent>{
-        type: HttpEventType.UploadProgress,
-        loaded: x,
-        total: 100
-      }).pipe(delay(1000)));
 
-      const success = of(new HttpResponse({ status: 200 })).pipe(delay(1000));
-      events.push(success);
+      /*(function(d, m){
+        var kommunicateSettings = {"appId":"7519ee060abee2b532e8565aa0527aed","popupWidget":true,"automaticChatOpenOnNavigation":true, 
+                "title": "test",
+                 "appSettings": {
+                        "chatWidget": {
+                          "popup": true,           // To enable or disable the pre-chat popup (boolean)
+                          //"emojilibrary" : true
+                        },
+                        "chatPopupMessage": [{
+                          "message": "Wanna ask something related to "+document.title+ "?", // Message to be displayed in the pre-chat popup (string)
+                          "delay": 3000                    // Delay interval of pre-chat popup (number in milliseconds)
+                        }],
+                 },
+                 "onInit" : function(){
+                     var chatContext = {
+                      "lat":"Latitude° N",
+                      "lon":"Longitude° E"
+                    }
+                    Kommunicate.updateChatContext(chatContext);
+                 }
+        };
 
-      return concat(...events);
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+      })(document, window.kommunicate || {});*/ 
     }
-
-    if (req.url === 'removeUrl') {
-        return of(new HttpResponse({ status: 200 }));
-    }
-
-    return next.handle(req);
   }
-}
+
+
+

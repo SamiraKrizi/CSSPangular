@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+
+<div class="container">
+    <div class="left-content">
+        <div class="mother-grid-inner">
+            <div class="inner-block">
+                <form>
+                    <table class="table table-striped" id="claims">
+                        <tr>
+
+                            <th (click)="sort('claimUploadedBy')">Uploaded By&nbsp; <i class="fa fa-sort"></i></th>
+                            <th (click)="sort('claimUploadDate')">Claim Date&nbsp; <i class="fa fa-sort"></i></th>
+                            <th>Status</th>
+                            <th>Location</th>
+                            <th (click)="sort('AccidentDate')">Accident Date&nbsp; <i class="fa fa-sort"></i></th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+
+                        <tr *ngFor="let claims of service.list |
+										 orderBy : key: reverse | paginate : {itemsPerPage:5,currentPage:p};">
+                            <!--(click)="RowSelected(claims); -->
+
+                            <td (click)="populateForm(claims)">{{claims.claimUploadedBy}}</td>
+                            <td (click)="populateForm(claims)">{{claims.claimUploadDate}}</td>
+                            <td (click)="populateForm(claims)">{{claims.Status}}</td>
+                            <td (click)="populateForm(claims)">{{claims.Location}}</td>
+                            <td (click)="populateForm(claims)">{{claims.AccidentDate}}</td>
+                            <td (click)="populateForm(claims)"> <img [src]="'data:image/png;base64,'+claims.File" style="height:80px;width:100px" />
+                            </td>
+
+                            <td>
+
+                                <a class="btn btn-sm btn-info text-white"
+                                    (click)="openDetails(contentDetails, claims)"><i class="fa fa-folder-open"></i></a>
+
+                            </td>
+                        </tr>
+
+                        <pagination-controls (pageChange)="p = $event "></pagination-controls>
+
+                    </table>
+
+                </form>
+            </div>
+
+            <!------------------------------------------------------VIEW MORE------------------------------------------------------------------------------->
+            <form>
+                <ng-template #contentDetails let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Claim Details </h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class="form-group">
+                            <label for="Reply"> Reply</label>
+                            <div class="input-group">
+                                <input id="Reply" class="form-control" placeholder="Not treated yet" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="Status"> Status</label>
+                            <div class="input-group">
+                                <input id="Status" class="form-control" readonly>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="claimUploadedBy">Claim Uploaded By</label>
+                            <div class="input-group">
+                                <input id="claimUploadedBy" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="claimUploadDate">Claim Upload Date</label>
+                            <div class="input-group">
+                                <input id="claimUploadDate" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Location">Location</label>
+                            <div class="input-group">
+                                <input id="Location" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AccidentDate">AccidentDate</label>
+                            <div class="input-group">
+                                <input id="AccidentDate" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Description"> Description</label>
+                            <div class="input-group">
+                                <input id="Description" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="BodilyInjury"> Bodily Injury</label>
+                            <div class="input-group">
+                                <input id="BodilyInjury" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="DriverName"> Driver Name</label>
+                            <div class="input-group">
+                                <input id="DriverName" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PolicyHolderName"> Policy Holder Name</label>
+                            <div class="input-group">
+                                <input id="PolicyHolderName" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="RegistrationCountry"> Registration Country</label>
+                            <div class="input-group">
+                                <input id="RegistrationCountry" class="form-control" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="VehicleRegistration"> Vehicle Registration</label>
+                            <div class="input-group">
+                                <input id="VehicleRegistration" class="form-control" readonly>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" style="font-weight: bold;"
+                            (click)="modal.close('Save click')">Close</button>
+                    </div>
+                </ng-template>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</html>

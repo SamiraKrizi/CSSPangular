@@ -1,0 +1,182 @@
+<section class="w3l-form-36">
+    <div class="form-36-mian section-gap">
+        <div class="wrapper">
+            <div class="container">
+                <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off" class="claim-form">
+                    
+                    <div class="row">
+
+                        <div class="col align-self">
+                            <div class="form-inner-cont" style="margin-top: 80px;">
+                                <h3 style="color: #56238e; font-weight: bold;"> Accident details</h3>
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Location
+                                    </p>
+                                <div class="form-input">
+                                    <span class="fa fa-user-o" aria-hidden="true"></span>
+                                    <select placeholder="Location" class="form-control" name="Location" #Location="ngModel"
+                                    [(ngModel)]="service.formData.Location" required>
+                                    <option value=""> select </option>
+                                        <option *ngFor="let count of countryList">{{count.name}}</option>
+                                    </select>
+                                    <div
+                                    *ngIf="RegistrationCountry.errors && (RegistrationCountry.invalid && RegistrationCountry.touched)">
+                                    <div class="validation-error" *ngIf="RegistrationCountry.errors.required"> Registration
+                                        Country is required</div>
+                                </div>
+                                    
+                                </div>
+
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Accident Date
+                                    </p>
+                                <div class="form-input">
+                                    <span class="fa fa-calendar" aria-hidden="true"></span>
+                                    <input type="date" class="form-control" placeholder="AccidentDate"
+                                        name="AccidentDate" #AccidentDate="ngModel" name="AccidentDate"
+                                        [(ngModel)]="service.formData.AccidentDate">
+                                </div>
+
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Bodily Injury
+                                    </p>
+                                <div class="login-remember d-grid">
+                                    <label class="check-remaind">
+                                        <input type="radio" name="BodilyInjury" #BodilyInjury="ngModel" value="yes"
+                                            [(ngModel)]="service.formData.BodilyInjury" required>
+                                        <span class="checkmark"></span>
+                                        <p class="remember" style="color: #86bc35; font-weight: bold;"> Yes </p>
+                                    </label>
+                                    <label class="check-remaind">
+                                        <input type="radio" name="BodilyInjury" #BodilyInjury="ngModel" value="no"
+                                            [(ngModel)]="service.formData.BodilyInjury" required>
+                                        <span class="checkmark"></span>
+                                        <p class="remember" style="color: #86bc35; font-weight: bold;"> No </p>
+                                    </label>
+                                </div>
+
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Description
+                                </p>
+                                <div class="form-input">
+                                    <span class="fa fa-pencil" aria-hidden="true"></span>
+
+                                    <textarea class="form-control" name="Description" #Description="ngModel"
+                                        [(ngModel)]="service.formData.Description" required
+                                        placeholder="Please add some description... "></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+                        <div class="col align-self">
+                            <div class="form-inner-cont" style="margin-top: 80px;">
+                                <h3 style="color: #56238e; font-weight: bold;">Other party</h3>
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Driver Name
+                                </p>
+                                <div class="form-input">
+                                    <span class="fa fa-user-o" aria-hidden="true"></span>
+                                    <input type="text" class="form-control"
+                                        placeholder="Driver Name" name="DriverName" #DriverName="ngModel" value="DriverName"
+                                        [(ngModel)]="service.formData.DriverName" required />
+                                </div>
+
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Policy Holder Name
+                                </p>
+                                <div class="form-input">
+                                    <span class="fa fa-user-o" aria-hidden="true"></span>
+                                    <input type="text" class="form-control"
+                                        placeholder="Policy Holder Name" name="PolicyHolderName" #PolicyHolderName="ngModel" value="PolicyHolderName"
+                                        [(ngModel)]="service.formData.PolicyHolderName" required />
+                                </div>
+
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Vehicle Registration
+                                </p>
+                                <div class="form-input">
+                                    <span class="fa fa-car" aria-hidden="true"></span>
+                                    <input type="text" required
+                                        pattern="^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$"
+                                        class="form-control"
+                                        placeholder="Vehicle Registration XX zz XX zzzz" name="VehicleRegistration" #VehicleRegistration="ngModel" value="VehicleRegistration"
+                                        [(ngModel)]="service.formData.VehicleRegistration" required />
+                                </div>
+
+
+                                <p class="re member" style="color: #3899dd; font-weight: bold; margin-top: 20px;">Registration Country
+                                </p>
+                                <div class="form-input">
+                                    <span class="fa fa-home" aria-hidden="true"></span>
+                                    <select placeholder="Registration Country" class="form-control"
+                                         name="RegistrationCountry" #RegistrationCountry="ngModel" value="RegistrationCountry"
+                                        [(ngModel)]="service.formData.RegistrationCountry" required >
+                                         <option value=""> select </option>
+                                        <option *ngFor="let count of countryList">{{count.name}}</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+                        <div class="col align-self">
+                            <div class="form-inner-cont" style="margin-top: 80px;">
+                                <h3 style="color: #56238e; font-weight: bold;">Attach documents</h3>
+                                <h5 style="color: #56238e" >Only (.jpg,.jpeg,.png format is accepted)</h5>
+
+                                <p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">
+                                    Accident Photo</p>
+                                <div class="form-input">
+                                    <span class="fa fa-file-o" aria-hidden="true"></span>
+                                    <input type="file" accept=".jpg,.jpeg,.png"  (change)="uploadFile(file.files)" class="form-control"
+                                    name="File"  #file value="File"
+                                    [(ngModel)]="service.formData.File" required
+                                    required  />
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="upload" *ngIf="progress > 0">
+                                      {{progress}}%
+                                    </span>
+                                    <span class="upload" *ngIf="message">
+                                      {{message}}
+                                    </span>
+                                  </div>
+
+                                  <!--p class="remember" style="color: #3899dd; font-weight: bold; margin-top: 20px;">
+                                    Injury Report</p>
+                                <div class="form-input">
+                                    <span class="fa fa-file-o" aria-hidden="true"></span>
+                                    <input type="file" accept=".gif,.jpg,.jpeg,.png,.doc,.docx, .pdf"  (change)="uploadFile(file.files)" class="form-control"
+                                    name="File"  #file value="File"
+                                    [(ngModel)]="service.formData.File" required
+                                    required  />
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="upload" *ngIf="progress > 0">
+                                      {{progress}}%
+                                    </span>
+                                    <span class="upload" *ngIf="message">
+                                      {{message}}
+                                    </span>
+                                  </div-->
+
+              
+                                <div class="login-remember d-grid">
+                                    <button type="submit" class="btn theme-button" value="Register"  
+                                        [disabled]="form.invalid"
+                                        style="background-color: #86bc35; color: #ffff; font-weight: bold; margin-right: 200px;">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

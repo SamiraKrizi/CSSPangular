@@ -12,72 +12,8 @@ import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-documents',
-  
-  template: `
-  <ng-container [formGroup]="documents">
+  templateUrl: './documents.component.html',
 
-      <kendo-formfield>
-          <kendo-label [for]="policeReport" [optional]="false" [text]="'Police Report *'"></kendo-label>
-          <kendo-upload
-              #policeReport
-              [formControlName]="'policeReport'"
-              [saveUrl]="uploadSaveUrl"
-              [removeUrl]="uploadRemoveUrl"
-              [restrictions]="restrictions">
-          </kendo-upload>
-          <kendo-formhint>Allowed extensions are jpg, jpeg, pdf or png</kendo-formhint>
-      </kendo-formfield>
-
-      <kendo-formfield>
-      <kendo-label [for]="accidentPhotos" [optional]="false" [text]="'Accident Photos *'"></kendo-label>
-      <kendo-upload
-          #accidentPhotos
-          [formControlName]="'accidentPhotos'"
-          [saveUrl]="uploadSaveUrl"
-          [removeUrl]="uploadRemoveUrl"
-          [restrictions]="restrictions">
-      </kendo-upload>
-              
-      <kendo-formhint>Allowed extensions are jpg, jpeg, pdf or png</kendo-formhint>
-      </kendo-formfield>
-
-      <kendo-formfield>
-      <kendo-label [for]="injuryReport" [optional]="false" [text]="'Injury Report *'"></kendo-label>
-      <kendo-upload
-          #injuryReport
-          [formControlName]="'injuryReport'"
-          [saveUrl]="uploadSaveUrl"
-          [removeUrl]="uploadRemoveUrl"
-          [restrictions]="restrictions">
-      </kendo-upload>
-      <kendo-formhint>Allowed extensions are jpg, jpeg, pdf or png</kendo-formhint>
-      </kendo-formfield>
-
-      <kendo-formfield>
-      <kendo-label [for]="invoices" [optional]="false" [text]="'Invoices *'"></kendo-label>
-      <kendo-upload
-          #invoices
-          [formControlName]="'invoices'"
-          [saveUrl]="uploadSaveUrl"
-          [removeUrl]="uploadRemoveUrl"
-          [restrictions]="restrictions">
-      </kendo-upload>
-      <kendo-formhint>Allowed extensions are jpg, jpeg, pdf or png</kendo-formhint>
-      </kendo-formfield>
-
-      <kendo-formfield>
-      <kendo-label [for]="other" [optional]="true" [text]="'Other'"></kendo-label>
-      <kendo-upload
-          #other
-          [formControlName]="'other'"
-          [saveUrl]="uploadSaveUrl"
-          [removeUrl]="uploadRemoveUrl"
-          [restrictions]="restrictions">
-      </kendo-upload>
-      <kendo-formhint>Allowed extensions are jpg, jpeg, pdf or png</kendo-formhint>
-      </kendo-formfield>
-</ng-container>
-`
 })
 
 export class DocumentsComponent implements OnInit  {

@@ -3,6 +3,8 @@ import { User } from './user.model';
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { config } from 'rxjs/internal/config';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -13,83 +15,131 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class UserService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-  formData : User;
+  formData: User;
+  list: User[];
+
   readonly rootURL = "https://localhost:44301/api"
 
-  constructor(private http : HttpClient) { 
-    
-}
-  private token: string
+  constructor(private http: HttpClient, private router: Router,private fb: FormBuilder,) {
+
+  }
+
+
+
+  formModel = this.fb.group({
+    Name: ['', Validators.required],
+    Email: ['', Validators.email],
+    VehicleRegistration: ['', Validators.required],
+    RegistrationCountry: ['', Validators.required],
+    PhoneNumber: ['', Validators.required],
+    Passwords: this.fb.group({
+      Password: ['', [Validators.required, Validators.minLength(4)]],
+      ConfirmPassword: ['', Validators.required]
+    }, { validator: this.comparePasswords })
+
+  });
+
+  comparePasswords(fb: FormGroup) {
+    let confirmPswrdCtrl = fb.get('ConfirmPassword');
+    //passwordMismatch
+    //confirmPswrdCtrl.errors={passwordMismatch:true}
+    if (confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
+      if (fb.get('Password').value != confirmPswrdCtrl.value)
+        confirmPswrdCtrl.setErrors({ passwordMismatch: true });
+      else
+        confirmPswrdCtrl.setErrors(null);
+    }
+  }
+
+
 
   /*postUser(formData : User){
     return this.http.post(this.rootURL+'/Account/Register',formData)
   }*/
 
-  registerUser(user: User) {
-    const body: User = {
-
-      Id : user.Id,
-      Name : user.Name,
+  registerUser(user: User,roles : string[]) {
+    const body = {
+      UserID: '',
+      Name: user.Name,
       Email: user.Email,
       Password: user.Password,
       ConfirmPassword: user.ConfirmPassword,
-      VehicleRegistration : user.VehicleRegistration,
-      RegistrationCountry : user.RegistrationCountry,
-      PhoneNumber : user.PhoneNumber,
-      ClaimDate : user.ClaimDate,
-     // ClaimID : user.ClaimID
-
+      VehicleRegistration: user.VehicleRegistration,
+      RegistrationCountry: user.RegistrationCountry,
+      PhoneNumber: user.PhoneNumber,
+      ClaimDate: user.ClaimDate,
+      IsDeleted: user.IsDeleted,
+      Roles : roles
     }
-    var reqHeader = new HttpHeaders({'No-Auth':'True'});
-    return this.http.post('https://localhost:44301/api/Account/Register', body,{headers : reqHeader});
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.post(this.rootURL + '/Account/Register', body, { headers: reqHeader });
   }
 
-  userAuthentication(userName, password) {
-    var data = "username=" + userName + "&password=" + password + "&grant_type=password";
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True' });
-    localStorage.setItem('currentUser', JSON.stringify(User));
-    return this.http.post("https://localhost:44301/token", data, { headers: reqHeader });
+  putRole(user: User) {
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.put(this.rootURL + '/roles/' + user.UserID, user);
   }
-  getUserClaims(){
-    return  this.http.get(this.rootURL+'/GetUserClaims');
-   }
 
-   public isLoggedIn(): boolean {
-    const user = this.getUserDetails()
-    if (user) {
-      //return user.exp > Date.now() / 1000
-      return true
-    } else {
-      return false
+  refreshList() {
+    this.http.get(this.rootURL + '/Account/GetList')
+      .toPromise().then(res => this.list = res as User[]);
+  }
+
+  getUserClaims() {
+    return this.http.get(this.rootURL + '/GetUserClaims');
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete(this.rootURL + '/Account/user/' + id);
+  }
+
+
+  EditUser(user: User) {
+    const body: User = {
+      UserID: '',
+      Name: user.Name,
+      Email: user.Email,
+      Password: user.Password,
+      ConfirmPassword: user.ConfirmPassword,
+      VehicleRegistration: user.VehicleRegistration,
+      RegistrationCountry: user.RegistrationCountry,
+      PhoneNumber: user.PhoneNumber,
+      ClaimDate: user.ClaimDate,
+      //Roles: user.Roles,
+      IsDeleted: user.IsDeleted
     }
+
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.post('https://localhost:44301/api/Account/Register', body, { headers: reqHeader });
   }
 
-
-  public getUserDetails(): User {
-    const token = this.getToken()
-    let payload
-    if (token) {
-      payload = token.split('.')[1]
-      payload = window.atob(payload)
-      return JSON.parse(payload)
-    } else {
-      return null
-    }
+  getById(id: string) {
+    return this.http.get<User>(`${this.rootURL}/ManageInfo/${id}`);
   }
-  public getToken(): string {
-    if (!this.token) {
-      this.token = localStorage.getItem('usertoken')
-    }
-    return this.token
-  }
+ 
 
   logout() {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('currentUser');
-    localStorage.clear();
-    //this.currentUserSubject.next(null);
-
+    window.sessionStorage.clear();
+    //this.router.navigate(['/login']); 
+    //this.router.navigate(['/login'])
   }
 
+  getAllRoles() {
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get(this.rootURL + '/GetAllRoles', { headers: reqHeader });
+  }
 
+roleMatch(allowedRoles): boolean {
+  var isMatch = false;
+  var userRoles: string[] = JSON.parse(localStorage.getItem('userRoles'));
+  allowedRoles.forEach(element => {
+    if (userRoles.indexOf(element) > -1) {
+      isMatch = true;
+      return false;
+    }
+  });
+  return isMatch;
+
+}
 }

@@ -17,7 +17,7 @@ export class DocumentsService {
   constructor(private http : HttpClient) { }
 
 
-  upload(file: File): Observable<HttpEvent<any>> {
+ /* upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
@@ -32,12 +32,12 @@ export class DocumentsService {
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.rootURL}/files`);
-  }
+  }*/
 
 
 
- /* postDocs(formData : Document){
+  postDocs(formData : FormData){
     return this.http.post(this.rootURL+'/UploadFile',formData);
      
-   }*/
+   }
 }

@@ -1,34 +1,26 @@
 
-/*enum FileType {
-    PoliceReport,
-    AccidentPhotos ,
-    Invoices ,
-    Other 
-}*/
 
 export class Claim {
     
-    ClaimID : number;
-    UserID : number = 1;
-    ClaimDate : string;
-
+    ID : number;
+    UserID : string;
+    claimUploadedBy : string;
+    claimUploadDate : string;
      
-    DetailsID : number;
-    Location   : string;
+    Location  : string;
     AccidentDate   : string;
     BodilyInjury  : string;
     Description  : string;
-
-    DocumentsID : number;
-    File : File; 
-    Type : String;
-    Size : number
-
-    otherPartyID : number;
-    DriverName : String;
+  
+    File : string; 
+    Status: string;
+    Reply : string;
+    
+    DriverName : string;
     PolicyHolderName : string;
-    RegistrationCountry : String;
-    VehicleRegistration : String;
-
-
+    RegistrationCountry : string;
+    VehicleRegistration : string;
+    
 }
+//[formGroup]="editClaim" (ngSubmit)="onSubmit()"
+//(click)="openToEdit(contentReply)"
